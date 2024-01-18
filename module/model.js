@@ -16,6 +16,8 @@ const model=(function(){
 
             list.push(item);
 
+            localStorage.setItem("Listed", JSON.stringify(list));
+
             return list;
         }
     }
