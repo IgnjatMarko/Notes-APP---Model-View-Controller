@@ -18,14 +18,36 @@ let control = function (model, view) {
     });
   };
 
+  let modifyItem = function () {
+    
+    let stored = document.querySelectorAll('[contenteditable]');
+
+    const storedList = [];
+
+    stored.forEach(function(item) {
+
+      const id = item.dataset.id;
+      const desc = item.textContent;
+
+      storedList.push({id: id, desc: desc});
+
+      item.addEventListener('input', modifyItem);
+
+    });
+
+    localStorage.setItem("Listed", JSON.stringify(storedList));
+
+  }
+
   return {
     init: function () {
       setupListener();
       if (!localStorage.getItem("Listed")) {
-        
+        console.log("No items saved in localStorage.")
       } else {
         renderLocalStorage();
-      }
+      };
+      modifyItem();
     },
   };
 };
