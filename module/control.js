@@ -16,6 +16,9 @@ let control = function (model, view) {
       let novi = model.addNote(item.desc);
       view.addItemToView(novi);
     });
+
+    modifyItem();
+    deleteItem();
   };
 
   let modifyItem = function () {
@@ -36,6 +39,8 @@ let control = function (model, view) {
     });
 
     localStorage.setItem("Listed", JSON.stringify(storedList));
+
+    deleteItem();
 
   };
 
@@ -58,10 +63,13 @@ let control = function (model, view) {
         if (index !== -1) {
           data.splice(index, 1);
         }
-        //console.log(listItem.dataset.id)
+        //console.log(listItem.parentElement)
         localStorage.setItem("Listed", JSON.stringify(data));
 
-        listItem.parentElement.removeChild(listItem);
+        if (index !== -1) {
+          listItem.parentElement.removeChild(listItem);
+        }
+        
       });
     });
   }
@@ -75,7 +83,7 @@ let control = function (model, view) {
         renderLocalStorage();
       };
       modifyItem();
-      deleteItem();
+      //deleteItem();
     },
   };
 };
