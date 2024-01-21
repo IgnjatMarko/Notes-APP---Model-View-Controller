@@ -63,3 +63,13 @@ li:focus {
     border: 2px solid #007bff;
     background: rgba(179, 207, 255, 0.52)
 }
+
+.icon{
+    display: none;
+    padding: 0 4px;
+}
+
+li:hover .icon{
+    display: inline-block;
+    cursor: pointer;
+}

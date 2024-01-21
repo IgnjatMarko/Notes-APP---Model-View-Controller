@@ -37,6 +37,33 @@ let control = function (model, view) {
 
     localStorage.setItem("Listed", JSON.stringify(storedList));
 
+  };
+
+  let deleteItem = function () {
+    let deleteButtons = document.querySelectorAll(".icon");
+
+    deleteButtons.forEach((button) => {
+      button.addEventListener("click", function (event) {
+
+        event.preventDefault();
+
+        let listItem = event.target.parentNode;
+
+        let id = listItem.dataset.id;
+
+        let data = JSON.parse(localStorage.getItem("Listed"));
+
+        let index = data.findIndex(item => item.id === id);
+
+        if (index !== -1) {
+          data.splice(index, 1);
+        }
+        //console.log(listItem.dataset.id)
+        localStorage.setItem("Listed", JSON.stringify(data));
+
+        listItem.parentElement.removeChild(listItem);
+      });
+    });
   }
 
   return {
@@ -48,6 +75,7 @@ let control = function (model, view) {
         renderLocalStorage();
       };
       modifyItem();
+      deleteItem();
     },
   };
 };

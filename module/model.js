@@ -19,6 +19,9 @@ const model=(function(){
             localStorage.setItem("Listed", JSON.stringify(list));
 
             return list;
+        },
+        updateLocalStorage: function(){
+            localStorage.setItem("Listed", JSON.stringify(list));
         }
     }
 
