@@ -16,16 +16,74 @@ let control = function (model, view) {
       let novi = model.addNote(item.desc);
       view.addItemToView(novi);
     });
+
+    modifyItem();
+    deleteItem();
   };
+
+  let modifyItem = function () {
+    
+    let stored = document.querySelectorAll('[contenteditable]');
+
+    const storedList = [];
+
+    stored.forEach(function(item) {
+
+      const id = item.dataset.id;
+      const desc = item.textContent;
+
+      storedList.push({id: id, desc: desc});
+
+      item.addEventListener('input', modifyItem);
+
+    });
+
+    localStorage.setItem("Listed", JSON.stringify(storedList));
+
+    deleteItem();
+
+  };
+
+  let deleteItem = function () {
+    let deleteButtons = document.querySelectorAll(".icon");
+
+    deleteButtons.forEach((button) => {
+      button.addEventListener("click", function (event) {
+
+        event.preventDefault();
+
+        let listItem = event.target.parentNode;
+
+        let id = listItem.dataset.id;
+
+        let data = JSON.parse(localStorage.getItem("Listed"));
+
+        let index = data.findIndex(item => item.id === id);
+
+        if (index !== -1) {
+          data.splice(index, 1);
+        }
+        //console.log(listItem.parentElement)
+        localStorage.setItem("Listed", JSON.stringify(data));
+
+        if (index !== -1) {
+          listItem.parentElement.removeChild(listItem);
+        }
+        
+      });
+    });
+  }
 
   return {
     init: function () {
       setupListener();
       if (!localStorage.getItem("Listed")) {
-        
+        console.log("No items saved in localStorage.")
       } else {
         renderLocalStorage();
-      }
+      };
+      modifyItem();
+      //deleteItem();
     },
   };
 };

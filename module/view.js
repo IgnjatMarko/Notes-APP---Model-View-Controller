@@ -11,13 +11,13 @@ const view = (function () {
 
       for (let i = 0; i < list.length; i++) {
 
-        html = `<li data-id="${list[i].id}" contenteditable="true">${list[i].desc}</li>`;
+        html = `<li data-id="${list[i].id}" contenteditable="true">${list[i].desc}<i class="icon fa-solid fa-rectangle-xmark"></i></li>`;
         
       }
       document.querySelector("#listy").innerHTML += html;
-      console.log(list);
+      // console.log(list);
       
-    },
+    }
   };
 
 })();
